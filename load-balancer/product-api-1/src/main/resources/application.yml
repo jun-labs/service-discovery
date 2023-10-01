@@ -1,0 +1,15 @@
+server:
+  port: ${PORT}
+
+spring:
+  application:
+    name: ${NAME}
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${DEFAULT_ZONE}
