@@ -1,0 +1,21 @@
+spring:
+  redis:
+    host: ${HOST}
+    port: ${PORT}
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: product-api
+          uri: ${PRODUCT_MODULE_URL}
+          predicates:
+            - Path=/api/products/**
+
+server:
+  port: 8761
+
+locations:
+  product: ${PRODUCT_MODULE_URL}
