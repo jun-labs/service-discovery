@@ -1,6 +1,6 @@
 package project.gateway.product.core.web.application;
 
-import project.gateway.product.domain.product.entity.Product;
+import project.gateway.product.core.domain.entity.Product;
 
 public interface ProductSearchUseCase {
 

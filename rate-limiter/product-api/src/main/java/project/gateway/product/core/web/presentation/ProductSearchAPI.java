@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.gateway.product.common.response.ApiResponse;
 import project.gateway.product.core.web.application.service.ProductSearchService;
 import project.gateway.product.core.web.dto.ProductResponse;
-import project.gateway.product.domain.product.entity.Product;
+import project.gateway.product.core.domain.entity.Product;
 
 import static project.gateway.product.common.codeandmessage.common.SuccessCodeAndMessage.OK;
 

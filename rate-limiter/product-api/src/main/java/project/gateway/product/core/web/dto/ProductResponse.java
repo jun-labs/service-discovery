@@ -2,7 +2,7 @@ package project.gateway.product.core.web.dto;
 
 import java.math.BigDecimal;
 import lombok.Getter;
-import project.gateway.product.domain.product.entity.Product;
+import project.gateway.product.core.domain.entity.Product;
 
 @Getter
 public class ProductResponse {
