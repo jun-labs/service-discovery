@@ -1,13 +1,10 @@
 package project.gateway.springcloud.common.configuration.ratelimiter.filter;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import project.gateway.springcloud.common.configuration.ratelimiter.RateLimiter;
@@ -15,8 +12,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
-@Primary
-@Component
 public class RateLimiterFilterFactory extends
         AbstractGatewayFilterFactory<RateLimiterFilterFactory.Config> {
 
@@ -52,7 +47,6 @@ public class RateLimiterFilterFactory extends
     }
 
     @Getter
-    @Setter
     public static class Config {
 
         int statusCode;
