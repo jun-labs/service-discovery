@@ -6,4 +6,8 @@ dependencies {
     implementation(project(":support"))
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
+
+    // Test
+    implementation("io.projectreactor:reactor-test")
+    implementation(group: "it.ozimov", name: "embedded-redis", version: "0.7.1")
 }
