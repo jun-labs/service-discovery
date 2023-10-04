@@ -1,0 +1,49 @@
+plugins {
+    id("java")
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+}
+
+group = "project.gateway"
+version = "0.0.1-SNAPSHOT"
+
+configurations {
+    asciidoctorExt
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply(plugin: "java")
+    apply(plugin: "java-library")
+    apply(plugin: "org.springframework.boot")
+    apply(plugin: "io.spring.dependency-management")
+
+    dependencies {
+        dependencyManagement {
+            imports {
+                mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            }
+        }
+
+        // Test
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+        testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock:${wiremockVersion}")
+
+        // Lombok
+        compileOnly("org.projectlombok:lombok:${lombokVersion}")
+        annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
