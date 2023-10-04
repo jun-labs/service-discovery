@@ -1,0 +1,22 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: product-api
+          uri: ${PRODUCT_MODULE_URL}
+          predicates:
+            - Path=/api/products/**
+
+server:
+  port: ${PORT}
+
+locations:
+  product: ${PRODUCT_MODULE_URL}
+
