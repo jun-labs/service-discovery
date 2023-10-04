@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
-import project.gateway.product.domain.product.entity.Product;
-import project.gateway.product.domain.product.repository.ProductRepository;
+import project.gateway.product.core.domain.entity.Product;
+import project.gateway.product.core.domain.repository.ProductRepository;
 
 @Repository
 public class ProductDao implements ProductRepository {

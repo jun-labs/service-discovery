@@ -1,4 +1,4 @@
-package project.gateway.product.domain.product.entity;
+package project.gateway.product.core.domain.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
