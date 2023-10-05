@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,9 +26,7 @@ public class RateLimiter {
     @Autowired
     public RateLimiter(ReactiveRedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.redisScript = new DefaultRedisScript<>();
-        redisScript.setScriptText(getLuaScript());
-        redisScript.setResultType(Long.class);
+        this.redisScript = new DefaultRedisScript<>(getLuaScript(), Long.class);
     }
 
     public Mono<Boolean> isAllowed(
@@ -52,13 +51,26 @@ public class RateLimiter {
                 .defaultIfEmpty(true);
     }
 
-    private static String getLuaScript() {
+    private String getLuaScript() {
         Resource resource = new ClassPathResource("sliding-window.lua");
         try {
             return new String(Files.readAllBytes(Paths.get(resource.getURI())));
         } catch (Exception exception) {
             throw new IllegalStateException();
         }
+    }
+
+    public Mono<Boolean> increaseTooManyRequestCount(String ipAddress) {
+        String key = getKey(ipAddress);
+        return redisTemplate.opsForValue()
+                .increment(key)
+                .flatMap(count -> redisTemplate.expire(key, Duration.ofMinutes(1))
+                        .thenReturn(count))
+                .map(count -> count >= 3);
+    }
+
+    private String getKey(String ipAddress) {
+        return String.format("ip:string:%s", ipAddress);
     }
 
     @Getter
