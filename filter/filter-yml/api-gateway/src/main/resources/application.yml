@@ -1,0 +1,32 @@
+spring:
+  redis:
+    host: ${HOST}
+    port: ${PORT}
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway
+  cloud:
+    default-filters:
+      - name: GlobalFilter
+        args:
+          baseMessage: Spring Cloud Gateway Global Filter
+          preLogger: true
+          postLogger: true
+    gateway:
+      routes:
+        - id: product-api
+          uri: ${PRODUCT_MODULE_URI}
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - CustomFilter
+server:
+  port: 8761
+
+locations:
+  product: ${PRODUCT_MODULE_URI}
+
+logging:
+  level:
+    root: INFO
