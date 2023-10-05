@@ -1,6 +1,6 @@
 # API Gateway Filter
 
-The apigateway filter can be managed as a Spring Bean.
+The API Gateway filter can be managed as a Spring Bean.
 
 <br/><br/><br/><br/>
 
