@@ -13,6 +13,8 @@ import reactor.test.StepVerifier;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 @ActiveProfiles("test")
 @DisplayName("[IntegrationTest] RateLimiter 통합 테스트")
@@ -41,5 +43,15 @@ class RateLimiterIntegrationTest {
                 .expectNext(true, true, true, true)
                 .expectNext(false)
                 .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("모든 최대 요청 횟수(3)를 초과하면 요청 불가(TRUE)를 반환한다.")
+    void increase_too_many_request_count_test() {
+        String ipAddress = "192.168.0.1";
+
+        assertEquals(Boolean.FALSE, rateLimiter.increaseTooManyRequestAndGet(ipAddress).block());
+        assertEquals(Boolean.FALSE, rateLimiter.increaseTooManyRequestAndGet(ipAddress).block());
+        assertEquals(Boolean.TRUE, rateLimiter.increaseTooManyRequestAndGet(ipAddress).block());
     }
 }
