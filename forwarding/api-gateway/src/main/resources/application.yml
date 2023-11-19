@@ -1,0 +1,18 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: api-springcloud
+  cloud:
+    gateway:
+      routes:
+        - id: product-api
+          uri: ${PRODUCT_MODULE_URL}
+          predicates:
+            - Path=/**
+
+server:
+  port: 8761
+
+location:
+  product: ${PRODUCT_MODULE_URL}
